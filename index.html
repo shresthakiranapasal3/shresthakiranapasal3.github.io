@@ -1,97 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Shrestha Kirana Pasal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body { font-family: Arial; margin:0; background:#f7f7f7;}
-header { background:#2e7d32; color:white; padding:15px; text-align:center;}
-.shop-info { font-size:14px; }
-.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; padding:15px;}
-.card { background:white; border-radius:8px; padding:10px; box-shadow:0 0 5px rgba(0,0,0,.1); text-align:center;}
-.card img { width:100%; height:120px; object-fit:cover; }
-button { background:#2e7d32; color:white; border:none; padding:8px 12px; border-radius:5px; margin-top:5px;}
-.cart { padding:15px; background:white; margin:15px; border-radius:10px;}
-.lang { position:fixed; top:10px; right:10px; }
+body{font-family:Arial;margin:0;background:#f5f5f5}
+header{background:#2e7d32;color:#fff;padding:12px;text-align:center}
+input,select{padding:8px;width:100%;margin:5px 0}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;padding:10px}
+.card{background:#fff;padding:10px;border-radius:8px;text-align:center}
+.card img{width:100%;height:120px;object-fit:cover}
+button{background:#2e7d32;color:white;border:none;padding:8px;border-radius:5px;margin-top:5px}
+.cart{background:#fff;margin:10px;padding:10px;border-radius:8px}
 </style>
 </head>
 
 <body>
 
-<div class="lang">
-<button onclick="setLang('en')">EN</button>
-<button onclick="setLang('np')">ने</button>
-</div>
-
 <header>
-<h2 id="title">Shrestha Kirana Pasal</h2>
-<div class="shop-info" id="info">
-B.P Chowk, Letang, Morang<br>
-📞 9767156207 | WhatsApp Available
-</div>
+<h2>Shrestha Kirana Pasal</h2>
+<p>B.P Chowk, Letang | 📞 9767156207</p>
 </header>
 
-<div class="products" id="productList"></div>
+<div style="padding:10px">
+<input type="text" id="search" placeholder="Search products...">
+<select id="category">
+<option value="all">All Categories</option>
+<option value="Grocery">Grocery</option>
+<option value="Eggs">Eggs & Meat</option>
+<option value="Bakery">Bakery & Dairy</option>
+<option value="Icecream">Ice-cream</option>
+</select>
+</div>
+
+<div class="products" id="products"></div>
 
 <div class="cart">
-<h3 id="cartTitle">Your Order</h3>
-<ul id="cartItems"></ul>
-<button onclick="sendWhatsApp()" id="orderBtn">Order on WhatsApp</button>
+<h3>Your Order</h3>
+<ul id="cart"></ul>
+<button onclick="order()">Order on WhatsApp</button>
 </div>
 
 <script>
-let cart = [];
-let lang = "en";
-
-const products = [
-{ name_en:"Rice (5kg)", name_np:"चामल (५ किलो)", price:800, img:"https://images.unsplash.com/photo-1604908554027-3a32b68a3b77" },
-{ name_en:"Cooking Oil", name_np:"खाने तेल", price:350, img:"https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
-{ name_en:"Sugar (1kg)", name_np:"चिनी (१ किलो)", price:120, img:"https://images.unsplash.com/photo-1587049352846-4a222e7849b0" },
-{ name_en:"Dal", name_np:"दाल", price:200, img:"https://images.unsplash.com/photo-1606788075765-42f6b5b04c9a" }
+let cart=[];
+const products=[
+{n:"Rice",np:"चामल",c:"Grocery",p:80,img:"rice.jpg"},
+{n:"Sugar",np:"चिनी",c:"Grocery",p:120,img:"sugar.jpg"},
+{n:"Eggs",np:"अण्डा",c:"Eggs",p:15,img:"eggs.jpg"},
+{n:"Milk",np:"दूध",c:"Bakery",p:80,img:"milk.jpg"},
+{n:"Ice Cream",np:"आइसक्रिम",c:"Icecream",p:60,img:"ice.jpg"}
 ];
 
-function loadProducts(){
-document.getElementById("productList").innerHTML="";
+function load(){
+let html="";
+let s=document.getElementById("search").value.toLowerCase();
+let cat=document.getElementById("category").value;
 products.forEach((p,i)=>{
-document.getElementById("productList").innerHTML += `
+if((cat=="all"||p.c==cat) && p.n.toLowerCase().includes(s)){
+html+=`
 <div class="card">
 <img src="${p.img}">
-<h4>${lang=="en"?p.name_en:p.name_np}</h4>
-<p>Rs ${p.price}</p>
-<button onclick="addToCart(${i})">${lang=="en"?"Add":"थप्नुहोस्"}</button>
+<h4>${p.n} / ${p.np}</h4>
+<select id="q${i}">
+<option value="0.5">0.5 kg</option>
+<option value="1">1 kg</option>
+<option value="2">2 kg</option>
+</select>
+<p>Rs ${p.p}</p>
+<button onclick="add(${i})">Add</button>
 </div>`;
-});
+}});
+document.getElementById("products").innerHTML=html;
 }
-
-function addToCart(i){
-cart.push(products[i]);
-updateCart();
+function add(i){
+let q=document.getElementById("q"+i).value;
+cart.push(products[i].n+" - "+q+" kg");
+document.getElementById("cart").innerHTML+=`<li>${products[i].n} - ${q} kg</li>`;
 }
-
-function updateCart(){
-let list = document.getElementById("cartItems");
-list.innerHTML="";
-cart.forEach(i=>{
-list.innerHTML += `<li>${lang=="en"?i.name_en:i.name_np}</li>`;
-});
-}
-
-function sendWhatsApp(){
-let msg = "Hello Shrestha Kirana Pasal,%0AI want to order:%0A";
-cart.forEach(i=>{ msg += "- "+i.name_en+"%0A"; });
+function order(){
+let msg="Hello Shrestha Kirana Pasal,%0AI want to order:%0A";
+cart.forEach(i=>msg+=i+"%0A");
 window.open("https://wa.me/9779767156207?text="+msg);
 }
-
-function setLang(l){
-lang=l;
-document.getElementById("cartTitle").innerText = l=="en"?"Your Order":"तपाईंको अर्डर";
-document.getElementById("orderBtn").innerText = l=="en"?"Order on WhatsApp":"WhatsApp बाट अर्डर";
-loadProducts();
-}
-
-loadProducts();
+document.getElementById("search").onkeyup=load;
+document.getElementById("category").onchange=load;
+load();
 </script>
 
 </body>
