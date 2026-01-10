@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shrestha Kirana Pasal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body { font-family: Arial; margin:0; background:#f7f7f7;}
+header { background:#2e7d32; color:white; padding:15px; text-align:center;}
+.shop-info { font-size:14px; }
+.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; padding:15px;}
+.card { background:white; border-radius:8px; padding:10px; box-shadow:0 0 5px rgba(0,0,0,.1); text-align:center;}
+.card img { width:100%; height:120px; object-fit:cover; }
+button { background:#2e7d32; color:white; border:none; padding:8px 12px; border-radius:5px; margin-top:5px;}
+.cart { padding:15px; background:white; margin:15px; border-radius:10px;}
+.lang { position:fixed; top:10px; right:10px; }
+</style>
+</head>
+
+<body>
+
+<div class="lang">
+<button onclick="setLang('en')">EN</button>
+<button onclick="setLang('np')">ने</button>
+</div>
+
+<header>
+<h2 id="title">Shrestha Kirana Pasal</h2>
+<div class="shop-info" id="info">
+B.P Chowk, Letang, Morang<br>
+📞 9767156207 | WhatsApp Available
+</div>
+</header>
+
+<div class="products" id="productList"></div>
+
+<div class="cart">
+<h3 id="cartTitle">Your Order</h3>
+<ul id="cartItems"></ul>
+<button onclick="sendWhatsApp()" id="orderBtn">Order on WhatsApp</button>
+</div>
+
+<script>
+let cart = [];
+let lang = "en";
+
+const products = [
+{ name_en:"Rice (5kg)", name_np:"चामल (५ किलो)", price:800, img:"https://images.unsplash.com/photo-1604908554027-3a32b68a3b77" },
+{ name_en:"Cooking Oil", name_np:"खाने तेल", price:350, img:"https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+{ name_en:"Sugar (1kg)", name_np:"चिनी (१ किलो)", price:120, img:"https://images.unsplash.com/photo-1587049352846-4a222e7849b0" },
+{ name_en:"Dal", name_np:"दाल", price:200, img:"https://images.unsplash.com/photo-1606788075765-42f6b5b04c9a" }
+];
+
+function loadProducts(){
+document.getElementById("productList").innerHTML="";
+products.forEach((p,i)=>{
+document.getElementById("productList").innerHTML += `
+<div class="card">
+<img src="${p.img}">
+<h4>${lang=="en"?p.name_en:p.name_np}</h4>
+<p>Rs ${p.price}</p>
+<button onclick="addToCart(${i})">${lang=="en"?"Add":"थप्नुहोस्"}</button>
+</div>`;
+});
+}
+
+function addToCart(i){
+cart.push(products[i]);
+updateCart();
+}
+
+function updateCart(){
+let list = document.getElementById("cartItems");
+list.innerHTML="";
+cart.forEach(i=>{
+list.innerHTML += `<li>${lang=="en"?i.name_en:i.name_np}</li>`;
+});
+}
+
+function sendWhatsApp(){
+let msg = "Hello Shrestha Kirana Pasal,%0AI want to order:%0A";
+cart.forEach(i=>{ msg += "- "+i.name_en+"%0A"; });
+window.open("https://wa.me/9779767156207?text="+msg);
+}
+
+function setLang(l){
+lang=l;
+document.getElementById("cartTitle").innerText = l=="en"?"Your Order":"तपाईंको अर्डर";
+document.getElementById("orderBtn").innerText = l=="en"?"Order on WhatsApp":"WhatsApp बाट अर्डर";
+loadProducts();
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>
