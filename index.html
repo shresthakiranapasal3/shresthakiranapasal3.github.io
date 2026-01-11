@@ -36,10 +36,21 @@ button{background:#2e7d32;color:white;border:none;padding:8px;border-radius:5px;
 <button onclick="setLang('np')">ने</button>
 </div>
 
-<header>
-<h2 id="title">Shrestha Kirana Pasal</h2>
-<p id="info">B.P Chowk, Letang | 📞 9767156207</p>
+<header style="display:flex;align-items:center;justify-content:space-between;">
+  
+  <div style="display:flex;align-items:center;gap:10px;">
+    <img src="logo.png" style="height:40px">
+    <h2 id="title">Shrestha Kirana Pasal</h2>
+  </div>
+
+  <div>
+    <a href="https://facebook.com/YOURPAGE" target="_blank" style="color:white;font-size:14px;">
+      📘 Facebook
+    </a>
+  </div>
+
 </header>
+
 
 <div class="searchbar">
 <input type="text" id="search" placeholder="Search products...">
@@ -61,7 +72,9 @@ button{background:#2e7d32;color:white;border:none;padding:8px;border-radius:5px;
 <h3 id="cartTitle">Your Order</h3>
 <ul id="cart"></ul>
 <textarea id="address" placeholder="Delivery address / note"></textarea>
-<button onclick="order()" id="orderBtn">Order on WhatsApp</button>
+<button onclick="orderWhatsApp()">WhatsApp</button>
+<button onclick="orderMessenger()">Messenger</button>
+<button onclick="orderCall()">Call</button>
 </div>
 
 <script>
@@ -124,12 +137,20 @@ cart.push(products[i].n+" - "+qty);
 document.getElementById("cart").innerHTML+=`<li>${products[i].n} - ${qty}</li>`;
 }
 
-function order(){
-let msg="Hello Shrestha Kirana Pasal,%0AI want to order:%0A";
-cart.forEach(i=>msg+=i+"%0A");
-msg+="%0ADelivery: "+document.getElementById("address").value;
-window.open("https://wa.me/9779767156207?text="+msg);
+function orderWhatsApp(){
+  let msg = encodeURIComponent(cartText);
+  window.open("https://wa.me/9779767156207?text=" + msg);
 }
+
+function orderMessenger(){
+  let msg = encodeURIComponent(cartText);
+  window.open("https://m.me/YOURPAGE?ref=" + msg);
+}
+
+function orderCall(){
+  window.location.href = "tel:+9779767156207";
+}
+
 
 function setLang(l){
 lang=l;
