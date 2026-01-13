@@ -1,11 +1,11 @@
 [
   {
-    "id": "rice",
-    "name_en": "Rice",
-    "name_np": "चामल",
+    "id": "Rice",
+    "name_en": "Gyan Premium Basmati Rice",
+    "name_np": "ज्ञान प्रिमियम बासमती चामल",
     "category": "weight",
     "price_per_kg": "120",
-    "image": "products/rice.jpg"
+    "image": "products/rice/Gyan Premium Basmati Rice.jpg"
   },
   {
     "id": "dal",
