@@ -1,0 +1,50 @@
+[
+  {
+    "id": "rice",
+    "name_en": "Rice",
+    "name_np": "चामल",
+    "category": "weight",
+    "price_per_kg": "120",
+    "image": "products/rice.jpg"
+  },
+  {
+    "id": "dal",
+    "name_en": "Dal (Lentils)",
+    "name_np": "दाल",
+    "category": "weight",
+    "price_per_kg": "180",
+    "image": "products/dal.jpg"
+  },
+  {
+    "id": "oil",
+    "name_en": "Cooking Oil",
+    "name_np": "खाना पकाउने तेल",
+    "category": "liter",
+    "price_per_l": "230",
+    "image": "products/oil.jpg"
+  },
+  {
+    "id": "eggs",
+    "name_en": "Eggs",
+    "name_np": "अण्डा",
+    "category": "piece",
+    "price_per_pc": "15",
+    "image": "products/eggs.jpg"
+  },
+  {
+    "id": "meat",
+    "name_en": "Meat (Buff)",
+    "name_np": "मासु (भैंसी)",
+    "category": "weight",
+    "price_per_kg": "800",
+    "image": "products/meat.jpg"
+  },
+  {
+    "id": "petrol",
+    "name_en": "Petrol",
+    "name_np": "पेट्रोल",
+    "category": "liter",
+    "price_per_l": "185",
+    "image": "products/petrol.jpg"
+  }
+]
