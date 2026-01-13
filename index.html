@@ -1,215 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "124fe401-8fd5-4775-badd-62e7e8665379",
-    });
-  });
-</script>
-<title>Shrestha Kirana Pasal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2e7d32">
-
-<style>
-  
-#topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#2e7d32;
-  padding:12px 16px;
-}
-
-.left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.logo{
-  height:42px;
-}
-
-.shopname{
-  font-size:20px;
-  font-weight:700;
-  color:white;
-  font-family:Poppins, Arial;
-}
-
-.right{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.fb{
-  color:white;
-  text-decoration:none;
-  font-size:14px;
-  background:#1877f2;
-  padding:6px 10px;
-  border-radius:6px;
-}
-
-.lang{
-  background:#ffffff33;
-  color:white;
-  border:none;
-  padding:6px 10px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-body{font-family:Segoe UI;margin:0;background:#f4f6f8}
-header{background:#2e7d32;color:#fff;padding:15px;text-align:center}
-.searchbar{padding:10px;background:#fff;display:flex;gap:10px}
-input,select,textarea{padding:8px;width:100%;border-radius:5px;border:1px solid #ccc}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;padding:12px}
-.card{background:#fff;padding:10px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
-.card img{width:100%;height:120px;object-fit:cover;border-radius:8px}
-button{background:#2e7d32;color:white;border:none;padding:8px;border-radius:5px;margin-top:5px;width:100%}
-.cart{background:#fff;margin:10px;padding:10px;border-radius:10px}
-.lang{position:fixed;top:10px;right:10px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shrestha Kirana Pasal</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header>
+    <img src="logo.png" alt="Shrestha Kirana Pasal Logo" id="logo">
+    <h1 id="shop-name">Shrestha Kirana Pasal</h1>
+    <div id="lang-switch">
+      <button onclick="setLang('en')">English</button>
+      <button onclick="setLang('np')">नेपाली</button>
+    </div>
+  </header>
 
-<div class="lang">
-<button onclick="setLang('en')">EN</button>
-<button onclick="setLang('np')">ने</button>
-</div>
+  <main>
+    <section id="product-list"></section>
+  </main>
 
-<header id="topbar">
-  <div class="left">
-    <img src="logo.png" class="logo">
-    <div class="shopname">Shrestha Kirana Pasal</div>
-  </div>
-
-  <div class="right">
-    <a href="https://facebook.com/YOURPAGE" target="_blank" class="fb">Facebook</a>
-    <button onclick="toggleLang()" class="lang">EN | नेपाली</button>
-  </div>
-</header>
-
-
-<div class="searchbar">
-<input type="text" id="search" placeholder="Search products...">
-<select id="category">
-<option value="all">All Categories</option>
-<option value="Rice">Rice & Grains</option>
-<option value="Grocery">Grocery</option>
-<option value="Bakery">Bakery & Dairy</option>
-<option value="Snacks">Snacks</option>
-<option value="Drinks">Drinks</option>
-<option value="Household">Household</option>
-<option value="Icecream">Ice-cream</option>
-</select>
-</div>
-
-<div class="products" id="products"></div>
-
-<div class="cart">
-<h3 id="cartTitle">Your Order</h3>
-<ul id="cart"></ul>
-<textarea id="address" placeholder="Delivery address / note"></textarea>
-<button onclick="orderWhatsApp()">WhatsApp</button>
-<button onclick="orderMessenger()">Messenger</button>
-<button onclick="orderCall()">Call</button>
-</div>
-
-<script>
-let lang="en";
-let cart=[];
-
-const products=[
-{n:"Rice (Masino)",np:"चामल",c:"Rice",p:80,img:"https://images.unsplash.com/photo-1604908554027-3a32b68a3b77",d:"Quality fine rice"},
-{n:"Basmati Rice",np:"बासमती चामल",c:"Rice",p:140,img:"https://images.unsplash.com/photo-1598514983222-b2f3d1c9a43c",d:"Aromatic rice"},
-{n:"Sugar",np:"चिनी",c:"Grocery",p:120,img:"https://images.unsplash.com/photo-1587049352846-4a222e7849b0",d:"Refined sugar"},
-{n:"Salt",np:"नुन",c:"Grocery",p:40,img:"https://images.unsplash.com/photo-1584305574647-55e9b94b3d48",d:"Iodized salt"},
-{n:"Cooking Oil",np:"खाने तेल",c:"Grocery",p:350,img:"https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",d:"Refined oil"},
-{n:"Milk",np:"दूध",c:"Bakery",p:80,img:"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",d:"Fresh milk"},
-{n:"Curd",np:"दही",c:"Bakery",p:90,img:"https://images.unsplash.com/photo-1604908177521-472b4c1b42c5",d:"Fresh curd"},
-{n:"Bread",np:"डबल रोटी",c:"Bakery",p:60,img:"https://images.unsplash.com/photo-1608198093002-ad4e005484ec",d:"Soft bread"},
-{n:"Eggs",np:"अण्डा",c:"Grocery",p:15,img:"https://images.unsplash.com/photo-1584270354949-1a5a77d3a9d0",d:"Farm eggs"},
-{n:"Tea",np:"चिया",c:"Grocery",p:180,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93",d:"Black tea"},
-{n:"Noodles",np:"चाउचाउ",c:"Snacks",p:25,img:"https://images.unsplash.com/photo-1589308078055-9189c1db5a1c",d:"Instant noodles"},
-{n:"Biscuits",np:"बिस्कुट",c:"Snacks",p:30,img:"https://images.unsplash.com/photo-1585238342028-1f1f1f1f1f1f",d:"Sweet biscuits"},
-{n:"Coca Cola",np:"कोक",c:"Drinks",p:80,img:"https://images.unsplash.com/photo-1613070120286-98a8f3e5b8b5",d:"Cold drink"},
-{n:"Sprite",np:"स्प्राइट",c:"Drinks",p:80,img:"https://images.unsplash.com/photo-1615486363584-74f78bbcdcc6",d:"Soft drink"},
-{n:"Ice Cream",np:"आइसक्रिम",c:"Icecream",p:60,img:"https://images.unsplash.com/photo-1497034825429-c343d7c6a68f",d:"Vanilla icecream"},
-{n:"Soap",np:"साबुन",c:"Household",p:50,img:"https://images.unsplash.com/photo-1583947215259-38e31be8751f",d:"Bath soap"},
-{n:"Detergent",np:"सर्फ",c:"Household",p:120,img:"https://images.unsplash.com/photo-1616627981236-cf0bb2c01d64",d:"Washing powder"},
-{n:"Toothpaste",np:"दन्तमंजन",c:"Household",p:90,img:"https://images.unsplash.com/photo-1588776814546-1c34b06b0b6f",d:"Dental care"},
-{n:"Toothbrush",np:"ब्रश",c:"Household",p:50,img:"https://images.unsplash.com/photo-1615492029475-94e0c59b1879",d:"Oral brush"},
-{n:"Cooking Gas Lighter",np:"ग्यास लाइटर",c:"Household",p:150,img:"https://images.unsplash.com/photo-1600093463591-8b3c1d2b3d11",d:"Gas lighter"}
-];
-
-function load(){
-let html="";
-let s=document.getElementById("search").value.toLowerCase();
-let cat=document.getElementById("category").value;
-products.forEach((p,i)=>{
-if((cat=="all"||p.c==cat) && p.n.toLowerCase().includes(s)){
-html+=`
-<div class="card">
-<img src="${p.img}">
-<h4>${lang=="en"?p.n:p.np}</h4>
-<p>${p.d}</p>
-<p>Rs ${p.p}</p>
-<select id="u${i}">
-<option value="0.5">0.5</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="5">5</option>
-</select>
-<input id="m${i}" type="number" placeholder="Custom qty">
-<button onclick="add(${i})">${lang=="en"?"Add":"थप्नुहोस्"}</button>
-</div>`;
-}});
-document.getElementById("products").innerHTML=html;
-}
-
-function add(i){
-let u=document.getElementById("u"+i).value;
-let m=document.getElementById("m"+i).value;
-let qty=m?m:u;
-cart.push(products[i].n+" - "+qty);
-document.getElementById("cart").innerHTML+=`<li>${products[i].n} - ${qty}</li>`;
-}
-
-function orderWhatsApp(){
-  let msg = encodeURIComponent(cartText);
-  window.open("https://wa.me/9779767156207?text=" + msg);
-}
-
-function orderMessenger(){
-  let msg = encodeURIComponent(cartText);
-  window.open("https://m.me/YOURPAGE?ref=" + msg);
-}
-
-function orderCall(){
-  window.location.href = "tel:+9779767156207";
-}
-
-
-function setLang(l){
-lang=l;
-document.getElementById("cartTitle").innerText=l=="en"?"Your Order":"तपाईंको अर्डर";
-document.getElementById("orderBtn").innerText=l=="en"?"Order on WhatsApp":"WhatsApp बाट अर्डर";
-load();
-}
-
-document.getElementById("search").onkeyup=load;
-document.getElementById("category").onchange=load;
-load();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
