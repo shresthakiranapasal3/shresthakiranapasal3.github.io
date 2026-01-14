@@ -76,27 +76,118 @@ function confirmAdd(){
 }
 
 function updateCart(){
- let html="",total=0;
- cart.forEach(c=>{
-   let t=c.qty*c.price; total+=t;
-   html+=`<div class='cart-item'>${c.name_en} ${c.qty}</div>`;
+ let box=document.getElementById("cartItems");
+ let totalBox=document.getElementById("cartTotal");
+
+ if(cart.length===0){
+   box.innerHTML="No items yet";
+   totalBox.innerHTML="0";
+   return;
+ }
+
+ let html="", total=0;
+
+ cart.forEach((i,index)=>{
+   let sub=i.price*i.qty;
+   total+=sub;
+   html+=`${i.name} x ${i.qty} = Rs ${sub}
+   <button onclick="removeItem(${index})">❌</button><br>`;
  });
- cartItems.innerHTML=html;
- cartTotal.innerText=total.toFixed(2);
- cartCount.innerText=cart.length;
+
+ box.innerHTML=html;
+ totalBox.innerText=total;
 }
+
+function removeItem(i){
+ cart.splice(i,1);
+ updateCart();
+}
+
 
 function toggleCart(){sideCart.classList.toggle("show");}
 
-function orderWhatsApp(){
- let msg="Order from Shrestha Kirana Pasal\n";
- cart.forEach(c=>msg+=`${c.name_en} - ${c.qty}\n`);
- msg+=`Total Rs ${cartTotal.innerText}`;
- window.open("https://wa.me/9779767156270?text="+encodeURIComponent(msg));
+
+function sendOrder(platform){
+  if(cart.length===0){
+    alert(lang==="np"?"कार्ट खाली छ":"Cart is empty");
+    return;
+  }
+
+  let address=document.getElementById("addressBox").value || "No address given";
+
+  let msg="🛒 New Order / नयाँ अर्डर %0A%0A";
+  let total=0;
+
+  cart.forEach(i=>{
+    let sub=i.qty*i.price;
+    total+=sub;
+    msg+=`${i.name} x ${i.qty} = Rs ${sub}%0A`;
+  });
+
+  msg+=`%0A💰 Total / कुल जम्मा: Rs ${total}`;
+  msg+=`%0A📍 Address: ${address}`;
+  msg+=`%0Aकृपया अर्डर पुष्टि गर्नुहोस्।`;
+
+  if(platform==="wa"){
+    window.open("https://wa.me/97798XXXXXXXX?text="+msg,"_blank");
+  }
+  if(platform==="ms"){
+    window.open("https://m.me/YOUR_PAGE_ID?ref="+msg,"_blank");
+  }
 }
-function orderMessenger(){window.open("https://m.me/61584074571777")}
-function orderCall(){window.open("tel:+9779767156270")}
-function orderEmail(){window.open("mailto:shresthakiranapasal3@gmail.com")}
+
+function sendOrder(platform){
+    if(cart.length===0){
+        alert(lang==="np"?"कार्ट खाली छ":"Cart is empty");
+        return;
+    }
+
+    let address = document.getElementById("addressBox").value || "No address";
+
+    let msg = "🛒 New Order / नयाँ अर्डर%0A%0A";
+    let grand = 0;
+
+    cart.forEach(i=>{
+        let total = i.price * i.qty;
+        grand += total;
+        msg += `${i.name} x ${i.qty} = Rs ${total}%0A`;
+    });
+
+    msg += `%0A💰 Grand Total / कुल जम्मा: Rs ${grand}`;
+    msg += `%0A📍 Address: ${address}`;
+    msg += `%0Aकृपया अर्डर पुष्टि गर्नुहोस्।`;
+
+    if(platform==="wa"){
+        window.open("https://wa.me/9779767156270?text="+msg,"_blank");
+    }
+    if(platform==="ms"){
+        window.open("https://m.me/YOUR_PAGE_ID?ref="+msg,"_blank");
+    }
+}
+
+
+function orderWhatsApp(){
+    sendOrder("wa");
+}
+
+
+function orderMessenger(){
+    sendOrder("ms");
+}
+
+
+
+
+function orderCall(){
+  window.open("tel:+9779767156270")
+}
+
+
+function orderEmail(){
+window.open("mailto:shresthakiranapasal3@gmail.com")
+}
+
+
 function filterBrand(cat,brand){
  let list=products.filter(p=>p.category==cat && (brand=="all"||p.brand==brand));
  content.innerHTML=`<div class="grid">${list.map(card).join("")}</div>`;
