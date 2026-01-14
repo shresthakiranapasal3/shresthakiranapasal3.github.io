@@ -88,15 +88,21 @@ function updateCart(){
  let html="", total=0;
 
  cart.forEach((i,index)=>{
-   let sub=i.price*i.qty;
-   total+=sub;
-   html+=`${i.name} x ${i.qty} = Rs ${sub}
-   <button onclick="removeItem(${index})">❌</button><br>`;
+   let name = lang=="en" ? i.name_en : i.name_np;
+   let sub = i.price * i.qty;
+   total += sub;
+
+   html += `
+   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+     <span>${name} x ${i.qty} = Rs ${sub}</span>
+     <button onclick="removeItem(${index})">❌</button>
+   </div>`;
  });
 
- box.innerHTML=html;
- totalBox.innerText=total;
+ box.innerHTML = html;
+ totalBox.innerText = total;
 }
+
 
 function removeItem(i){
  cart.splice(i,1);
@@ -136,13 +142,15 @@ function sendOrder(platform){
   }
 }
 
+
 function sendOrder(platform){
     if(cart.length===0){
         alert(lang==="np"?"कार्ट खाली छ":"Cart is empty");
         return;
     }
 
-    let address = document.getElementById("addressBox").value || "No address";
+    let note = document.getElementById("noteBox").value || "No note";
+
 
     let msg = "🛒 New Order / नयाँ अर्डर%0A%0A";
     let grand = 0;
@@ -150,18 +158,22 @@ function sendOrder(platform){
     cart.forEach(i=>{
         let total = i.price * i.qty;
         grand += total;
-        msg += `${i.name} x ${i.qty} = Rs ${total}%0A`;
+        let pname = lang=="en" ? i.name_en : i.name_np;
+msg += `${pname} x ${i.qty} = Rs ${total}%0A`;
+
     });
 
     msg += `%0A💰 Grand Total / कुल जम्मा: Rs ${grand}`;
-    msg += `%0A📍 Address: ${address}`;
+    msg += `%0A📝 Note: ${note}`;
+
     msg += `%0Aकृपया अर्डर पुष्टि गर्नुहोस्।`;
 
     if(platform==="wa"){
         window.open("https://wa.me/9779767156270?text="+msg,"_blank");
     }
     if(platform==="ms"){
-        window.open("https://m.me/YOUR_PAGE_ID?ref="+msg,"_blank");
+        window.open("https://m.me/100077109782734?ref="+encodeURIComponent(msg),"_blank");
+
     }
 }
 
