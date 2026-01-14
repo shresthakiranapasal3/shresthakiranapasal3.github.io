@@ -1,0 +1,7 @@
+{
+ "name":"Shrestha Kirana Pasal",
+ "short_name":"Kirana",
+ "start_url":".",
+ "display":"standalone",
+ "icons":[{"src":"logo.png","sizes":"192x192"}]
+}
