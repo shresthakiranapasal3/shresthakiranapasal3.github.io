@@ -61,8 +61,12 @@
 
   <div class="total">Total: Rs <span id="cartTotal">0</span></div>
 
-  <input id="addressBox" placeholder="Delivery Address / ठेगाना"
-   style="width:100%;padding:10px;margin:10px 0;">
+  <textarea id="noteBox" placeholder="Any note for shop? / केही भन्नु छ?"
+ style="width:100%;padding:10px;margin:10px 0;"></textarea>
+    <button onclick="orderWhatsApp()">📲 WhatsApp Order</button>
+<button onclick="orderMessenger()">💬 Messenger</button>
+<button onclick="orderCall()">📞 Call</button>
+
 
 
 <script src="script.js"></script>
