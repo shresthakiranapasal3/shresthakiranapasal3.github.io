@@ -1,0 +1,68 @@
+[
+  {
+    "id": "basmati",
+    "brand" : "",
+    "name_en": "Fortune Basmati Rice",
+    "name_np": "",
+    "category": "Rice",
+    "sellType": "weight",
+    "price": 180,
+    "image": "products/rice/basmati.jpg",
+    "featured": true
+  },
+  {
+    "id": "mansuli",
+    "brand" : "",
+    "name_en": "Local Mansuli Rice",
+    "name_np": "",
+    "category": "Rice",
+    "sellType": "weight",
+    "price": 130,
+    "image": "products/rice/mansuli.jpg",
+    "featured": true
+  },
+  {
+    "id": "Digestive Biscuit",
+    "brand" : "Britannia",
+    "name_en": "Britannia Digestive Biscuit",
+    "name_np": "ब्रिटानिया डाइजेस्टिभ बिस्कुट",
+    "category": "Biscuits",
+    "sellType": "piece",
+    "price": 130,
+    "image": "products/biscuits/Britannia Digestive Biscuit.jpg",
+    "featured": true
+  },
+  {
+    "id": "Digestive Biscuit",
+    "brand" : "Britannia",
+    "name_en": "Britannia Digestive Sugar Free Biscuit",
+    "name_np": "ब्रिटानिया डाइजेस्टिभ चिनी रहित बिस्कुट",
+    "category": "Biscuits",
+    "sellType": "piece",
+    "price": 310,
+    "image": "products/biscuits/Britannia Digestive Sugar Free Biscuit.jpg",
+    "featured": true
+  },
+  {
+    "id": "Britannia",
+    "brand" : "Britannia",
+    "name_en": "Marie Gold",
+    "name_np": "मारी गोल्ड",
+    "category": "Biscuits",
+    "sellType": "piece",
+    "price": 100,
+    "image": "products/biscuits/Marie Gold Biscuit.jpg",
+    "featured": true
+  },
+  {
+    "id": "petrol",
+    "brand" : "",
+    "name_en": "Petrol (Bottle)",
+    "name_np": "",
+    "category": "Petrol",
+    "sellType": "liter",
+    "price": 185,
+    "image": "products/petrol/petrol.jpg",
+    "featured": true
+  }
+]
