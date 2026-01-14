@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <meta charset="UTF-8">
 <title>Shrestha Kirana Pasal</title>
 <link rel="stylesheet" href="style.css">
@@ -8,13 +11,13 @@
 <body>
 
 <header class="top">
-  <div class="left">
+  <div class="left" style="display:flex;align-items:center;gap:10px;">
     <img src="logo.png" class="logo">
-    <div>
-      <h1 aline = "center">Shrestha Kirana Pasal</h1>
-      <p class="slogan">Fresh • Local • Trusted by Letang</p>
-      <p class="location">📍 B.P Chowk, Letang, Morang</p>
-    </div>
+      <div>
+        <h1>Shrestha Kirana Pasal</h1>
+        <p class="slogan">Fresh • Local • Trusted by Letang</p>
+        <p class="location">📍 B.P Chowk, Letang, Morang</p>
+      </div>
   </div>
 
   <div class="right">
@@ -53,14 +56,21 @@
 <!-- Side Cart -->
 <div id="sideCart" class="side-cart">
   <h3>🛒 Your Order</h3>
+
   <div id="cartItems"></div>
+
   <div class="total">Total: Rs <span id="cartTotal">0</span></div>
-  <button onclick="orderWhatsApp()">WhatsApp Order</button>
-  <button onclick="orderMessenger()">Messenger</button>
-  <button onclick="orderCall()">Call</button>
-  <button onclick="orderEmail()">Email</button>
-</div>
+
+  <input id="addressBox" placeholder="Delivery Address / ठेगाना"
+   style="width:100%;padding:10px;margin:10px 0;">
+
 
 <script src="script.js"></script>
+<script>
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
 </body>
 </html>
