@@ -1,7 +1,20 @@
 {
- "name":"Shrestha Kirana Pasal",
- "short_name":"Kirana",
- "start_url":".",
- "display":"standalone",
- "icons":[{"src":"logo.png","sizes":"192x192"}]
+  "name": "Shrestha Kirana Pasal",
+  "short_name": "Kirana",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#2b7a3d",
+  "theme_color": "#2b7a3d",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
