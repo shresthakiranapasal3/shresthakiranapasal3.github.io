@@ -51,6 +51,15 @@ nav button{flex:1;color:white;background:none;border:none;padding:10px}
 .side-cart.show{
   transform:translateX(0)
 }
+.cart-close{
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  float: right;
+  margin: 5px;
+  color: #333;
+}
 
 .side-cart{
   max-width: 350px;
@@ -124,4 +133,5 @@ nav button{flex:1;color:white;background:none;border:none;padding:10px}
  background:#2b7a3d;
  color:white;
 }
+
 
