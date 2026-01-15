@@ -74,14 +74,22 @@ function changePopupQty(d){
 function closePopup(){qtyPopup.classList.add("hidden");}
 
 function confirmAdd(){
- let q=parseFloat(popupQty.value);
- let item=cart.find(i=>i.id==selected.id);
- if(item) item.qty+=q;
- else cart.push({...selected,qty:q});
- closePopup();
- updateCart();
- setTimeout(()=>toggleCart(),500);
+    let q = parseFloat(popupQty.value);
+
+    let item = cart.find(i=>i.id==selected.id);
+    if(item) item.qty += q;
+    else cart.push({...selected,qty:q});
+
+    closePopup();
+    updateCart();
+
+    // Show cart briefly
+    sideCart.classList.add("show");
+    setTimeout(()=>{
+        sideCart.classList.remove("show");
+    }, 1200);
 }
+
 
 function updateCart(){
  let box=document.getElementById("cartItems");
@@ -103,7 +111,8 @@ function updateCart(){
    html += `
    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
      <span>${name} x ${i.qty} = Rs ${sub}</span>
-     <button onclick="removeItem(${index})">❌</button>
+     <button onclick="removeItem(${index})" title="Remove">🗑</button>
+
    </div>`;
  });
 
@@ -219,6 +228,7 @@ function toggleLang(){
  lang = lang=="en" ? "np" : "en";
  showHome();
 }
+
 
 
 
