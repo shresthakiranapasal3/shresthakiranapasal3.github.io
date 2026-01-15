@@ -54,8 +54,25 @@ body{
   background:#16a34a;
   color:white;
   padding:20px;
-  min-height:100vh;
+  height:100vh;   /* desktop full height */
 }
+
+@media (max-width: 768px){
+  #adminPanel{
+    flex-direction: column;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;        /* allow natural height */
+    padding:15px;
+  }
+
+  .main{
+    padding:15px;
+  }
+}
+
 
 .main{
   flex:1;
@@ -90,15 +107,5 @@ body{
   border-radius:8px;
 }
 
-@media (max-width: 768px){
-  #adminPanel{
-    flex-direction: column;
-  
-  }
-  .sidebar{
-    width:100%;
-    min-height: auto;
-    text-align: center;
-  }
-}
+
 
