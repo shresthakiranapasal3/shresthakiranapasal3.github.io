@@ -119,6 +119,26 @@ function clearForm(){
 function toggleStock(id,cur){
  db.collection("products").doc(id).update({stock:!cur});
 }
+async function fixSellTypes(){
+  let snap = await db.collection("products").get();
+
+  snap.forEach(doc=>{
+    let p = doc.data();
+    let newType = p.sellType;
+
+    if(p.sellType === "weight" || p.sellType === "liter"){
+      newType = "kg";
+    }
+
+    if(newType !== p.sellType){
+      db.collection("products").doc(doc.id).update({
+        sellType: newType
+      });
+    }
+  });
+
+  alert("All sell types fixed to kg / piece");
+}
 
 
 
