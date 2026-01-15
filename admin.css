@@ -107,5 +107,7 @@ body{
   border-radius:8px;
 }
 
+@media (max-width: 768px){ #adminPanel{ flex-direction: column; } .sidebar{ width:100%; min-height: auto; text-align: center; } }
+
 
 
