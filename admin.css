@@ -44,6 +44,9 @@ body{
 /* Layout */
 #adminPanel{
   display:flex;
+  flex-direction: row;
+  min-height: 100vh;
+
 }
 
 .sidebar{
@@ -85,4 +88,16 @@ body{
   height:150px;
   object-fit:cover;
   border-radius:8px;
+}
+
+@media (max-width: 768){
+  #adminPanel{
+    flex-direction: column;
+  
+  }
+  .sidebar{
+    width:100%;
+    min-height: auto;
+    text-align: center;
+  }
 }
