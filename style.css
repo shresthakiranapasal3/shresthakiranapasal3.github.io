@@ -13,7 +13,7 @@ header h1{
   letter-spacing:1px;
   color:white;
   margin:0;
-  line-height: 1,1;
+  line-height: 1.1;
 }
 
 .slogan{
@@ -71,6 +71,15 @@ nav button{flex:1;color:white;background:none;border:none;padding:10px}
   }
 }
 
+/* Logo resize on mobile */
+@media (max-width: 600px){
+  .logo{
+    width:60px;
+    height:60px;
+  }
+}
+
+
 
 .cart-item{display:flex;
     justify-content:space-between;
@@ -82,16 +91,20 @@ nav button{flex:1;color:white;background:none;border:none;padding:10px}
  align-items:center;
  background:#2b7a3d;
  color:white;
- padding: 6px 12px;
+ padding: 4px 12px;
 }
 .left{display:flex;
     gap:10px;
     align-items:center;
     flex : 1;
 }
+
+
+
 .left div{
-  text-align:center;
+  text-align:left;
 }
+
 
 .slogan{font-size:13px;
     color:#c8f3d2}
