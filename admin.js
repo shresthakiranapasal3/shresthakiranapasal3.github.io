@@ -11,24 +11,37 @@ function login(){
 }
 
 function addProduct(){
- let file=image.files[0];
- let ref=storage.ref("products/"+file.name);
 
- ref.put(file).then(()=>{
-   ref.getDownloadURL().then(url=>{
-     db.collection("products").add({
-       name_en:pname.value,
-       name_np:pname.value,
-       price:parseFloat(price.value),
-       category:category.value,
-       brand:brand.value,
-       sellType:sellType.value,
-       image:url,
-       featured:true
-     });
-   });
- });
+  let file = image.files[0];
+  let formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("upload_preset", "kirana_upload");
+
+  fetch("https://api.cloudinary.com/v1_1/dhpjzcuj3/image/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(r => r.json())
+  .then(data => {
+
+    let imgURL = data.secure_url;
+
+    db.collection("products").add({
+      name_en: pname.value,
+      name_np: pname.value,   // we’ll auto convert later
+      price: parseFloat(price.value),
+      category: category.value,
+      brand: brand.value,
+      sellType: sellType.value,
+      image: imgURL,
+      featured: true
+    });
+
+    alert("✅ Product added");
+  });
 }
+
 
 function loadProducts(){
  db.collection("products").onSnapshot(snap=>{
@@ -44,3 +57,4 @@ function loadProducts(){
 function del(id){
  db.collection("products").doc(id).delete();
 }
+
