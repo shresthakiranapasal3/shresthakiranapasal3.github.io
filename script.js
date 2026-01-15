@@ -80,7 +80,7 @@ function confirmAdd(){
  else cart.push({...selected,qty:q});
  closePopup();
  updateCart();
- toggleCart();
+ setTimeout(()=>toggleCart(),500);
 }
 
 function updateCart(){
@@ -118,7 +118,10 @@ function removeItem(i){
 }
 
 
-function toggleCart(){sideCart.classList.toggle("show");}
+function toggleCart(){
+  sideCart.classList.toggle("show");
+}
+
 
 
 function sendOrder(platform){
@@ -216,5 +219,6 @@ function toggleLang(){
  lang = lang=="en" ? "np" : "en";
  showHome();
 }
+
 
 
