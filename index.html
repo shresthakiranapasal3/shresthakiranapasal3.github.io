@@ -57,7 +57,8 @@
 <div id="sideCart" class="side-cart">
   <div style="display:flex;justify-content:space-between;align-items:center;">
     <h3>🛒 Your Order</h3>
-    <button onclick="toggleCart()" style="font-size:20px;background:none;border:none;">❌</button>
+    <button class="cart-close" onclick="toggleCart()">–</button>
+
   </div>
 
   <div id="cartItems"></div>
@@ -84,6 +85,7 @@ if("serviceWorker" in navigator){
 
 </body>
 </html>
+
 
 
 
