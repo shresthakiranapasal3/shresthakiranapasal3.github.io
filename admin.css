@@ -90,7 +90,7 @@ body{
   border-radius:8px;
 }
 
-@media (max-width: 768){
+@media (max-width: 768px){
   #adminPanel{
     flex-direction: column;
   
@@ -101,3 +101,4 @@ body{
     text-align: center;
   }
 }
+
