@@ -191,6 +191,14 @@ msg += `${pname} x ${i.qty} = Rs ${total}%0A`;
 
     msg += `%0Aकृपया अर्डर पुष्टि गर्नुहोस्।`;
 
+  firebase.firestore().collection("orders").add({
+  items: cart.map(i => (lang=="en"?i.name_en:i.name_np) + " x " + i.qty).join(", "),
+  total: grand,
+  time: Date.now(),
+  platform: platform
+});
+
+
     if(platform==="wa"){
         window.open("https://wa.me/9779767156270?text="+msg,"_blank");
     }
@@ -231,6 +239,7 @@ function toggleLang(){
  lang = lang=="en" ? "np" : "en";
  showHome();
 }
+
 
 
 
