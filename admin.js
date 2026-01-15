@@ -1,3 +1,6 @@
+let editId = null;
+
+
 async function autoNepali(text){
  let url="https://inputtools.google.com/request?text="+encodeURIComponent(text)+"&itc=ne-t-i0-und&num=1";
  let r=await fetch(url);
@@ -9,34 +12,39 @@ async function autoNepali(text){
 
 auth.onAuthStateChanged(user=>{
   if(user){
+    loginBox.style.display="none";
     adminPanel.style.display="block";
     loadProducts();
+  }else{
+    adminPanel.style.display="none";
+    loginBox.style.display="block";
   }
 });
+
 
 function login(){
  auth.signInWithEmailAndPassword(email.value,password.value)
  .catch(e=>alert(e.message));
 }
 
-function addProduct(){
-let editId=null;
-
 async function addProduct(){
 
  let file=image.files[0];
- let formData=new FormData();
+ let imgURL="";
 
- formData.append("file",file);
- formData.append("upload_preset","kirana_upload");
+ if(file){
+   let formData=new FormData();
+   formData.append("file",file);
+   formData.append("upload_preset","kirana_upload");
 
- let upload=await fetch("https://api.cloudinary.com/v1_1/dhpjzcuj3/image/upload",{
-  method:"POST",
-  body:formData
- });
- let data=await upload.json();
+   let upload=await fetch("https://api.cloudinary.com/v1_1/dhpjzcuj3/image/upload",{
+     method:"POST",
+     body:formData
+   });
 
- let imgURL=data.secure_url;
+   let data=await upload.json();
+   imgURL=data.secure_url;
+ }
 
  let nepali = await autoNepali(pname.value);
 
@@ -47,21 +55,26 @@ async function addProduct(){
   category:category.value,
   brand:brand.value,
   sellType:sellType.value,
-  image:imgURL,
   featured:true,
   stock:true,
   created:Date.now()
  };
 
+ if(imgURL!="") product.image = imgURL;
+
  if(editId){
-  db.collection("products").doc(editId).update(product);
-  editId=null;
-  alert("✏ Updated");
+   db.collection("products").doc(editId).update(product);
+   alert("✏ Product Updated");
+   editId=null;
  }else{
-  db.collection("products").add(product);
-  alert("✅ Added");
+   product.image=imgURL;
+   db.collection("products").add(product);
+   alert("✅ Product Added");
  }
+
+ clearForm();
 }
+
 
 function loadProducts(){
  db.collection("products").onSnapshot(snap=>{
@@ -94,10 +107,19 @@ function edit(id){
   editId=id;
  });
 }
+function clearForm(){
+ pname.value="";
+ price.value="";
+ brand.value="";
+ image.value="";
+ editId=null;
+}
+
 
 function toggleStock(id,cur){
  db.collection("products").doc(id).update({stock:!cur});
 }
+
 
 
 
