@@ -1,12 +1,20 @@
 let products=[],cart=[],selected=null;
-let lang ="en";
 
+// 🔥 Load products from Firebase
+db.collection("products").onSnapshot(snapshot=>{
+  products = [];
+  snapshot.forEach(doc=>{
+    products.push({
+      id: doc.id,
+      ...doc.data()
+    });
+  });
 
-fetch("products.json").then(r=>r.json()).then(d=>{
- products=d;
- buildCategoryBar();
- showHome();
+  buildCategoryBar();
+  showHome();
 });
+
+let lang ="en";
 
 function buildCategoryBar(){
  let cats=[...new Set(products.map(p=>p.category))];
@@ -208,4 +216,5 @@ function toggleLang(){
  lang = lang=="en" ? "np" : "en";
  showHome();
 }
+
 
