@@ -26,29 +26,27 @@
     <button onclick="auth.signOut()">Logout</button>
   </div>
 
-    <div class="main">
-      <h2>📦 Add / Edit Product</h2>
-      <div class="formCard"></div>
-        <input id="pname" placeholder="Product name (English)"><br>
-        <input id="price" placeholder="Price"><br>
-        <input id="category" placeholder="Category"><br>
-        <input id="brand" placeholder="Brand"><br>
-        
-        <select id="sellType">
-          <option value="kg">Kg</option>
-          <option value="piece">Piece</option>
-        </select>
-        
-        
-        <input type="file" id="image"><br>
-        <button onclick="addProduct()">➕ Add Product</button>
-      </div>
-      <h3>Products</h3>
-      <div id="productList"></div>
-    
-    </div>
-</div>
+  <div class="main">
+    <h2>📦 Add / Edit Product</h2>
+    <div class="formCard">
+      <input id="pname" placeholder="Product name (English)"><br>
+      <input id="price" placeholder="Price"><br>
+      <input id="category" placeholder="Category"><br>
+      <input id="brand" placeholder="Brand"><br>
 
+      <select id="sellType">
+        <option value="kg">Kg</option>
+        <option value="piece">Piece</option>
+      </select>
+
+      <input type="file" id="image"><br>
+      <button onclick="addProduct()">➕ Add Product</button>
+    </div>
+
+    <h3>Products</h3>
+    <div id="productList"></div>
+  </div>
+</div>
 
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
