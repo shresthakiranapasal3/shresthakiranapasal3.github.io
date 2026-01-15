@@ -3,43 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin - Shrestha Kirana Pasal</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+
 </head>
 <body>
 
-<h2>🔐 Admin Login</h2>
-<input id="email" placeholder="Email"><br>
-<input id="password" type="password" placeholder="Password"><br>
-<button onclick="login()">Login</button>
 
-<div id="adminPanel" style="display:none">
-<h2>📦 Add Product</h2>
-
-<input id="pname" placeholder="Product name (English)"><br>
-<input id="price" placeholder="Price"><br>
-<input id="category" placeholder="Category"><br>
-<input id="brand" placeholder="Brand"><br>
-<select id="sellType">
-  <option value="kg">Kg</option>
-  <option value="piece">Piece</option>
-</select>
-<input type="file" id="image"><br>
-
-<button onclick="addProduct()">➕ Add Product</button>
-
-<h3>Products</h3>
-<div id="productList"></div>
+<div id="loginBox">
+  <div class="loginCard">
+    <h2>🔐 Admin Login</h2>
+      <input id="email" placeholder="Email"><br>
+      <input id="password" type="password" placeholder="Password"><br>
+      <button onclick="login()">Login</button>
+ </div>
 </div>
+
+
+
+<div id="adminPanel" style="display:none;">
+  <div class="sidebar">
+    <h2>Shrestha Kirana</h2>
+    <button onclick="auth.signOut()">Logout</button>
+  </div>
+
+    <div class="main">
+      <h2>📦 Add / Edit Product</h2>
+      <div class="formCard"></div>
+        <input id="pname" placeholder="Product name (English)"><br>
+        <input id="price" placeholder="Price"><br>
+        <input id="category" placeholder="Category"><br>
+        <input id="brand" placeholder="Brand"><br>
+        
+        <select id="sellType">
+          <option value="kg">Kg</option>
+          <option value="piece">Piece</option>
+        </select>
+        
+        
+        <input type="file" id="image"><br>
+        <button onclick="addProduct()">➕ Add Product</button>
+      </div>
+      <h3>Products</h3>
+      <div id="productList"></div>
+    
+    </div>
+</div>
+
+
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-
 <script src="admin.js"></script>
 
 </body>
 </html>
-
 
