@@ -4,6 +4,7 @@ body{
   background:#f3f4f6;
 }
 
+/* LOGIN */
 #loginBox{
   height:100vh;
   display:flex;
@@ -41,44 +42,44 @@ body{
   border-radius:6px;
 }
 
-/* Layout */
+/* ADMIN LAYOUT */
 #adminPanel{
   display:flex;
-  flex-direction: row;
-  min-height: 100vh;
-
+  min-height:100vh;
 }
 
+/* LEFT PANEL */
 .sidebar{
-  width:220px;
+  width:240px;
   background:#16a34a;
   color:white;
-  padding:20px;
-  height:100vh;   /* desktop full height */
+  padding:25px;
+  box-sizing:border-box;
 }
 
-@media (max-width: 768px){
-  #adminPanel{
-    flex-direction: column;
-  }
-
-  .sidebar{
-    width:100%;
-    height:auto;        /* allow natural height */
-    padding:15px;
-  }
-
-  .main{
-    padding:15px;
-  }
+.sidebar h1{
+  margin:0 0 20px 0;
+  font-size:28px;
 }
 
+.sidebar button{
+  padding:10px 15px;
+  border:none;
+  background:white;
+  color:#16a34a;
+  border-radius:6px;
+  cursor:pointer;
+}
 
+/* RIGHT PANEL */
 .main{
   flex:1;
-  padding:20px;
+  padding:25px;
+  background:#f3f4f6;
+  box-sizing:border-box;
 }
 
+/* CARDS */
 .formCard{
   background:white;
   padding:15px;
@@ -107,7 +108,14 @@ body{
   border-radius:8px;
 }
 
-@media (max-width: 768px){ #adminPanel{ flex-direction: column; } .sidebar{ width:100%; min-height: auto; text-align: center; } }
+/* MOBILE FIX */
+@media (max-width:768px){
+  #adminPanel{
+    flex-direction:column;
+  }
 
-
-
+  .sidebar{
+    width:100%;
+    text-align:center;
+  }
+}
