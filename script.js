@@ -4,15 +4,18 @@ let products=[],cart=[],selected=null;
 db.collection("products").onSnapshot(snapshot=>{
   products = [];
   snapshot.forEach(doc=>{
-    products.push({
-      id: doc.id,
-      ...doc.data()
-    });
+    let p = doc.data();
+    p.id = doc.id;
+
+    if(p.stock !== false){   // hide out of stock
+      products.push(p);
+    }
   });
 
   buildCategoryBar();
   showHome();
 });
+
 
 let lang ="en";
 
@@ -228,6 +231,7 @@ function toggleLang(){
  lang = lang=="en" ? "np" : "en";
  showHome();
 }
+
 
 
 
