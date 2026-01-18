@@ -44,7 +44,7 @@
     <!-- ================= subcategory ================= -->
     <section class="card">
       <h3>📂 Add sub-category</h3>
-      <select id="sub_cat_parent"></select>
+      <select id="sub_cat_parent" class="category-select"></select>
       <input id="sub_en" placeholder="sub-category name (English)" />
       <input id="sub_np" placeholder="sub-category name (Nepali)" />
       <button onclick="addsubcategory()">Add sub-category</button>
@@ -53,8 +53,8 @@
     <!-- ================= TYPE ================= -->
     <section class="card">
       <h3>🏷️ Add Type</h3>
-      <select id="type_parent"></select>
-      <select id="type_sub_parent"></select>
+      <select id="type_parent" class="category-select"></select>
+      <select id="type_sub_parent" class="subcategory-select"></select>
       <input id="type_en" placeholder="Type name (English)" />
       <input id="type_np" placeholder="Type name (Nepali)" />
       <button onclick="addType()">Add Type</button>
@@ -64,9 +64,9 @@
     <section class="card">
       <h3>🛒 Add / Edit Product</h3>
 
-      <select id="product_category"></select>
-      <select id="product_subcategory"></select>
-      <select id="product_type"></select>
+      <select id="product_category" class="category-select"></select>
+      <select id="product_subcategory" class="subcategory-select"></select>
+      <select id="product_type" class="type-select"></select>
 
       <input id="prod_en" placeholder="Product name (English)" />
       <input id="prod_np" placeholder="Product name (Nepali)" />
