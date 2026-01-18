@@ -1,4 +1,6 @@
-// firebase.js
+// ================================
+// 🔥 FIREBASE CONFIG (GLOBAL)
+// ================================
 var firebaseConfig = {
   apiKey: "AIzaSyAZM-X3el9Eug_FaNWQbixfB-rrHFt29_Q",
   authDomain: "shrestha-kirana-pasal.firebaseapp.com",
@@ -9,8 +11,14 @@ var firebaseConfig = {
   measurementId: "G-53VG3XNFQ5"
 };
 
-// INIT
-firebase.initializeApp(firebaseConfig);
+// ================================
+// 🚀 SAFE INITIALIZATION
+// ================================
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-// GLOBAL DB
+// ================================
+// 📦 FIRESTORE INSTANCE
+// ================================
 var db = firebase.firestore();
