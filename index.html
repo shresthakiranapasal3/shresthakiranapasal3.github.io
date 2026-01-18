@@ -1,190 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shrestha Kirana Pasal</title>
 
-  <link rel="manifest" href="manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta charset="UTF-8">
-<title>Shrestha Kirana Pasal</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
+
 <body>
 
-<section class="filters">
-<select id="f_category">
-<option value="">category</option>
-</select>
-
-
-<select id="f_subcategory">
-<option value="">sub‑category</option>
-</select>
-
-
-<select id="f_type">
-<option value="">Type</option>
-</select>
-</section>
-
-
-<section id="productGrid" class="product-grid"></section>
-<!-- category BAR -->
-<div id="categories" class="category-bar"></div>
-
-<!-- sub category BAR -->
-<div id="subcategories" class="category-bar"></div>
-
-<!-- TYPE BAR -->
-<div id="types" class="category-bar"></div>
-
-<!-- products -->
-<div id="products" class="product-grid"></div>
-
+<!-- ================= HEADER ================= -->
 <header class="top">
-  <div class="left" style="display:flex;align-items:center;gap:10px;">
-    <img src="logo.png" class="logo">
-      <div>
-        <h1>Shrestha Kirana Pasal</h1>
-        <p class="slogan">Fresh • Local • Trusted by Letang</p>
-        <p class="location">📍 B.P Chowk, Letang, Morang</p>
-      </div>
+  <div class="left">
+    <img src="logo.png" class="logo" />
+    <div>
+      <h1>Shrestha Kirana Pasal</h1>
+      <p class="slogan">Fresh • Local • Trusted by Letang</p>
+      <p class="location">📍 B.P Chowk, Letang, Morang</p>
+    </div>
   </div>
- 
+
   <div class="right">
-    <button onclick="toggleLang()" class="langBtn">नेपाली / English</button>
-    <div class="cart" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+    <button class="langBtn">नेपाली / English</button>
+    <button class="cartBtn" onclick="toggleCart()">
+      🛒 <span id="cartCount">0</span>
+    </button>
   </div>
 </header>
 
-<!-- FILTER SECTION -->
-<div class="filters">
-  <select id="categorySelect" onchange="applyFilters()">
-    <option value="">All categories</option>
-  </select>
+<!-- ================= CATEGORY BAR ================= -->
+<div id="categories" class="category-bar"></div>
+<div id="subcategories" class="category-bar"></div>
+<div id="types" class="category-bar"></div>
 
-  <select id="subcategorySelect" onchange="applyFilters()">
-    <option value="">All subcategories</option>
-  </select>
+<!-- ================= PRODUCTS ================= -->
+<section id="products" class="product-grid"></section>
 
-  <select id="typeSelect" onchange="applyFilters()">
-    <option value="">All Types</option>
-  </select>
-</div>
-
-<!-- products -->
-<div id="productGrid" class="products"></div>
-
-<!-- CART -->
-<div class="cart">
-  <h3>🛒 Your Cart</h3>
-  <div id="cartItems"></div>
-  <p id="cartTotal"></p>
-
-  <button class="wa" onclick="orderWhatsApp()">📲 WhatsApp Order</button>
-  <button class="ms" onclick="orderMessenger()">💬 Messenger Order</button>
-
-  <a href="tel:+9779767156270">
-    <button class="call">📞 Call Order</button>
-  </a>
-</div>
-
-
-<div class="contactBar">
- <a href="https://wa.me/9779767156270" target="_blank">WhatsApp</a>
- <a href="tel:+9779767156270">Call</a>
- <a href="https://www.facebook.com/share/1HkJRVmhj1/" target="_blank">Facebook</a>
- <a href="https://www.tiktok.com/@shrestha.kirana.p3" target="_blank">TikTok</a>
-</div>
-
-
-<div id="categoryBar"></div>
-<main id="content"></main>
-
-
-<!-- Quantity popup -->
-<div id="qtyPopup" class="popup hidden">
-  <div class="box">
-    <h3 id="popupName"></h3>
-    <div class="qtyRow">
-      <button onclick="changePopupQty(-1)">-</button>
-      <input id="popupQty" value="1">
-      <button onclick="changePopupQty(1)">+</button>
-    </div>
-    <button onclick="confirmAdd()">Add to Cart</button>
-    <button onclick="closePopup()">Cancel</button>
-  </div>
-</div>
-
-<!-- Side Cart -->
+<!-- ================= SIDE CART ================= -->
 <div id="sideCart" class="side-cart">
-  <div style="display:flex;justify-content:space-between;align-items:center;">
+
+  <div class="cartHeader">
     <h3>🛒 Your Order</h3>
-    <button class="cart-close" onclick="toggleCart()">–</button>
+    <button class="cart-close" onclick="toggleCart()">✖</button>
   </div>
 
   <div id="sideCartItems"></div>
 
-  <div class="total">Total: Rs <span id="sideCartTotal">0</span></div>
+  <div class="total">
+    Total: Rs <span id="sideCartTotal">0</span>
+  </div>
 
-  <textarea id="noteBox"
+  <textarea
+    id="noteBox"
     placeholder="Any note for shop? / केही भन्नु छ?"
-    style="width:100%;padding:10px;margin:10px 0;"></textarea>
+  ></textarea>
 
-  <button onclick="orderWhatsApp()">📲 WhatsApp Order</button>
-  <button onclick="orderMessenger()">💬 Messenger</button>
-  <button onclick="orderCall()">📞 Call</button>
+  <button class="wa" onclick="orderWhatsApp()">📲 WhatsApp Order</button>
+  <button class="ms" onclick="orderMessenger()">💬 Messenger</button>
+  <button class="call" onclick="orderCall()">📞 Call</button>
 </div>
 
+<!-- ================= CONTACT BAR ================= -->
+<div class="contactBar">
+  <a href="https://wa.me/9779767156270" target="_blank">WhatsApp</a>
+  <a href="tel:+9779767156270">Call</a>
+  <a href="https://www.facebook.com/share/1HkJRVmhj1/" target="_blank">Facebook</a>
+  <a href="https://www.tiktok.com/@shrestha.kirana.p3" target="_blank">TikTok</a>
+</div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebaseapp.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<!-- ================= FIREBASE SDK (v8 – matches your setup) ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
 <script src="firebase.js"></script>
 <script src="script.js"></script>
 
 <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
 </script>
-
-<div id="qtyPopup" class="popup hidden">
-  <div class="popupCard">
-    <h3 id="popupProductName">Select Quantity</h3>
-
-    <div class="qtyControl">
-      <button onclick="changeQty(-1)">−</button>
-      <span id="qtyValue">1</span>
-      <button onclick="changeQty(1)">+</button>
-    </div>
-
-    <button onclick="confirmQty()">Add to Cart</button>
-    <button class="cancel" onclick="closeQtyPopup()">Cancel</button>
-  </div>
-</div>
-
-<!-- CART PANEL -->
-<div id="cart" class="cart hidden">
-  <div class="cartHeader">
-    <h3>🛒 Your Cart</h3>
-    <button onclick="closeCart()">✖</button>
-  </div>
-
-  <div id="cartItems"></div>
-
-  <p id="cartTotal">Total: Rs 0</p>
-
-  <button onclick="orderWhatsApp()">Order via WhatsApp</button>
-  <button onclick="orderMessenger()">Order via Messenger</button>
-  <button onclick="orderCall()">Order via Call</button>
-</div>
-
 
 </body>
 </html>
-
-
-
-
