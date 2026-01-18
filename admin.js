@@ -26,15 +26,15 @@ function normalize(v) {
   return v.trim().toLowerCase();
 }
 
-// ================= CATEGORY =================
-async function addCategory() {
+// ================= category =================
+async function addcategory() {
   const en = normalize(cat_en.value);
-  if (!en) return alert("Category required");
+  if (!en) return alert("category required");
 
   const snap = await db.collection("categories")
     .where("name_en", "==", en).get();
 
-  if (!snap.empty) return alert("Category already exists");
+  if (!snap.empty) return alert("category already exists");
 
   await db.collection("categories").add({
     name_en: en,
@@ -43,13 +43,13 @@ async function addCategory() {
     order: Date.now()
   });
 
-  alert("Category added");
+  alert("category added");
   cat_en.value = cat_np.value = "";
   loadAllSelectors();
 }
 
-// ================= SUBCATEGORY =================
-async function addSubcategory() {
+// ================= subcategory =================
+async function addsubcategory() {
   const cat = normalize(sub_cat_parent.value);
   const en = normalize(sub_en.value);
   if (!cat || !en) return alert("Missing fields");
@@ -59,7 +59,7 @@ async function addSubcategory() {
     .where("name_en", "==", en)
     .get();
 
-  if (!snap.empty) return alert("Subcategory already exists");
+  if (!snap.empty) return alert("subcategory already exists");
 
   await db.collection("subcategories").add({
     category: cat,
@@ -69,7 +69,7 @@ async function addSubcategory() {
     order: Date.now()
   });
 
-  alert("Subcategory added");
+  alert("subcategory added");
   sub_en.value = sub_np.value = "";
   loadAllSelectors();
 }
@@ -206,19 +206,19 @@ async function deleteProduct(id) {
 
 // ================= LOAD SELECTORS =================
 function loadAllSelectors() {
-  loadCategories("sub_cat_parent");
-  loadCategories("type_parent");
-  loadCategories("product_category");
+  loadcategories("sub_cat_parent");
+  loadcategories("type_parent");
+  loadcategories("product_category");
 
-  loadSubcategories("product_category", "product_subcategory");
-  loadSubcategories("type_parent", "type_sub_parent");
+  loadsubcategories("product_category", "product_subcategory");
+  loadsubcategories("type_parent", "type_sub_parent");
 
   loadTypes();
 }
 
-function loadCategories(selectId) {
+function loadcategories(selectId) {
   const sel = document.getElementById(selectId);
-  sel.innerHTML = "<option value=''>Select Category</option>";
+  sel.innerHTML = "<option value=''>Select category</option>";
 
   db.collection("categories").get().then(snap => {
     snap.forEach(d => {
@@ -229,10 +229,10 @@ function loadCategories(selectId) {
   });
 }
 
-function loadSubcategories(catId, subId) {
+function loadsubcategories(catId, subId) {
   document.getElementById(catId).onchange = e => {
     const sel = document.getElementById(subId);
-    sel.innerHTML = "<option value=''>Select Subcategory</option>";
+    sel.innerHTML = "<option value=''>Select subcategory</option>";
 
     db.collection("subcategories")
       .where("category", "==", normalize(e.target.value))
