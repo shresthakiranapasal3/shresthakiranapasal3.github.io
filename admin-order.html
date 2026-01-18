@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Orders – Shrestha Kirana Pasal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    header {
+      background: #2b7a3d;
+      color: white;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .orders {
+      padding: 15px;
+    }
+
+    .order-card {
+      background: white;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.08);
+    }
+
+    .order-card h4 {
+      margin: 0 0 6px;
+    }
+
+    .order-items {
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .order-total {
+      margin-top: 8px;
+      font-weight: bold;
+      color: #2b7a3d;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>📑 Customer Orders</h2>
+</header>
+
+<div class="orders" id="orders"></div>
+
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+  const ordersBox = document.getElementById("orders");
+
+  db.collection("orders")
+    .orderBy("created", "desc")
+    .onSnapshot(snapshot => {
+
+      if (snapshot.empty) {
+        ordersBox.innerHTML =
+          "<div class='empty'>No orders yet</div>";
+        return;
+      }
+
+      ordersBox.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const o = doc.data();
+
+        let itemsHtml = "";
+        o.items.forEach(i => {
+          itemsHtml += `${i.name_en} × ${i.qty}<br>`;
+        });
+
+        ordersBox.innerHTML += `
+          <div class="order-card">
+            <h4>🧾 Order</h4>
+            <div class="order-items">${itemsHtml}</div>
+            <div class="order-total">Total: Rs ${o.total}</div>
+            <small>${new Date(o.created).toLocaleString()}</small>
+          </div>
+        `;
+      });
+    });
+</script>
+
+</body>
+</html>

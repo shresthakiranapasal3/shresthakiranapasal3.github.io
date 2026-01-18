@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel – Shrestha Kirana Pasal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginSection" class="centerBox">
+  <h2>🔐 Admin Login</h2>
+  <input type="email" id="email" placeholder="Admin Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <p id="loginError"></p>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboardSection" class="hidden">
+
+  <header>
+    <h2>📦 Shrestha Kirana Pasal – Admin Panel</h2>
+    <div>
+      <a href="admin-order.html" target="_blank">
+        <button>📑 Orders</button>
+      </a>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= CATEGORY ================= -->
+    <section class="card">
+      <h3>📁 Add Category</h3>
+      <input id="cat_en" placeholder="Category name (English)" />
+      <input id="cat_np" placeholder="Category name (Nepali)" />
+      <button onclick="addCategory()">Add Category</button>
+    </section>
+
+    <!-- ================= SUBCATEGORY ================= -->
+    <section class="card">
+      <h3>📂 Add Sub-category</h3>
+      <select id="sub_cat_parent"></select>
+      <input id="sub_en" placeholder="Sub-category name (English)" />
+      <input id="sub_np" placeholder="Sub-category name (Nepali)" />
+      <button onclick="addSubcategory()">Add Sub-category</button>
+    </section>
+
+    <!-- ================= TYPE ================= -->
+    <section class="card">
+      <h3>🏷️ Add Type</h3>
+      <select id="type_parent"></select>
+      <select id="type_sub_parent"></select>
+      <input id="type_en" placeholder="Type name (English)" />
+      <input id="type_np" placeholder="Type name (Nepali)" />
+      <button onclick="addType()">Add Type</button>
+    </section>
+
+    <!-- ================= PRODUCT ================= -->
+    <section class="card">
+      <h3>🛒 Add / Edit Product</h3>
+
+      <select id="product_category"></select>
+      <select id="product_subcategory"></select>
+      <select id="product_type"></select>
+
+      <input id="prod_en" placeholder="Product name (English)" />
+      <input id="prod_np" placeholder="Product name (Nepali)" />
+
+      <input type="number" id="prod_qty" placeholder="Quantity" />
+      <select id="prod_unit">
+        <option value="">Unit</option>
+        <option value="kg">kg</option>
+        <option value="gm">gm</option>
+        <option value="ltr">ltr</option>
+        <option value="ml">ml</option>
+        <option value="pic">pic</option>
+        <option value="box">box</option>
+      </select>
+
+      <input type="number" id="prod_price" placeholder="Price" />
+      <input type="number" id="prod_discount" placeholder="Discount price (optional)" />
+      <input type="file" id="prod_image" accept="image/*" />
+
+      <button onclick="addOrUpdateProduct()">Save Product</button>
+    </section>
+
+    <!-- ================= PRODUCT LIST ================= -->
+    <section class="card">
+      <h3>📋 Existing Products</h3>
+      <div id="productList"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script src="firebase.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
