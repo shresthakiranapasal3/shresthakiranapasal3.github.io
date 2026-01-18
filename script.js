@@ -1,12 +1,12 @@
 // ================= GLOBAL STATE =================
-let selectedCategory = "all";
-let selectedSubcategory = "";
+let selectedcategory = "all";
+let selectedsubcategory = "";
 let selectedType = "";
 
 let allProducts = [];
 let cart = [];
 
-// ================= CATEGORY BAR =================
+// ================= category BAR =================
 db.collection("categories")
   .where("active", "==", true)
   .orderBy("order")
@@ -19,11 +19,11 @@ db.collection("categories")
     allBtn.innerText = "All";
     allBtn.classList.add("active");
     allBtn.onclick = () => {
-      selectedCategory = "all";
-      selectedSubcategory = "";
+      selectedcategory = "all";
+      selectedsubcategory = "";
       selectedType = "";
       setActiveButton(box, allBtn);
-      clearSubAndType();
+      clearsubAndType();
       renderProducts();
     };
     box.appendChild(allBtn);
@@ -34,11 +34,11 @@ db.collection("categories")
       btn.innerText = doc.data().name_en;
 
       btn.onclick = () => {
-        selectedCategory = name;
-        selectedSubcategory = "";
+        selectedcategory = name;
+        selectedsubcategory = "";
         selectedType = "";
         setActiveButton(box, btn);
-        loadSubcategories();
+        loadsubcategories();
         renderProducts();
       };
 
@@ -46,15 +46,15 @@ db.collection("categories")
     });
   });
 
-// ================= SUBCATEGORY BAR =================
-function loadSubcategories() {
+// ================= subcategory BAR =================
+function loadsubcategories() {
   const box = document.getElementById("subcategories");
   box.innerHTML = "";
 
-  if (!selectedCategory || selectedCategory === "all") return;
+  if (!selectedcategory || selectedcategory === "all") return;
 
   db.collection("subcategories")
-    .where("category", "==", selectedCategory)
+    .where("category", "==", selectedcategory)
     .where("active", "==", true)
     .orderBy("order")
     .get()
@@ -65,7 +65,7 @@ function loadSubcategories() {
         btn.innerText = doc.data().name_en;
 
         btn.onclick = () => {
-          selectedSubcategory = name;
+          selectedsubcategory = name;
           selectedType = "";
           setActiveButton(box, btn);
           loadTypes();
@@ -82,11 +82,11 @@ function loadTypes() {
   const box = document.getElementById("types");
   box.innerHTML = "";
 
-  if (!selectedCategory || !selectedSubcategory) return;
+  if (!selectedcategory || !selectedsubcategory) return;
 
   db.collection("types")
-    .where("category", "==", selectedCategory)
-    .where("subcategory", "==", selectedSubcategory)
+    .where("category", "==", selectedcategory)
+    .where("subcategory", "==", selectedsubcategory)
     .where("active", "==", true)
     .orderBy("order")
     .get()
@@ -132,12 +132,12 @@ function renderProducts() {
 
   let filtered = allProducts;
 
-  if (selectedCategory !== "all") {
-    filtered = filtered.filter(p => p.category === selectedCategory);
+  if (selectedcategory !== "all") {
+    filtered = filtered.filter(p => p.category === selectedcategory);
   }
 
-  if (selectedSubcategory) {
-    filtered = filtered.filter(p => p.subcategory === selectedSubcategory);
+  if (selectedsubcategory) {
+    filtered = filtered.filter(p => p.subcategory === selectedsubcategory);
   }
 
   if (selectedType) {
@@ -248,7 +248,7 @@ function setActiveButton(container, activeBtn) {
   activeBtn.classList.add("active");
 }
 
-function clearSubAndType() {
+function clearsubAndType() {
   document.getElementById("subcategories").innerHTML = "";
   document.getElementById("types").innerHTML = "";
 }
