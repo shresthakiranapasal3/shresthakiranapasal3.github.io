@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel – Shrestha Kirana Pasal</title>
+  <link rel="stylesheet" href="admin.css">
+
+
+</head>
+<body>
+
+
+<!-- 🔐 LOGIN SECTION -->
+<div id="loginSection" class="centerBox">
+  <h2>🔐 Admin Login</h2>
+  <input type="email" id="email" placeholder="Admin Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p id="loginError"></p>
+</div>
+
+<!-- 📊 DASHBOARD SECTION -->
+<div id="dashboardSection" class="hidden">
+  <header>
+    <h2>📦 Shrestha Kirana Pasal – Admin Panel</h2>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+
+  <main>
+
+    <!-- category -->
+      <section class="card">
+        <h3>📁 Add category</h3>
+        <input id="cat_en" placeholder="category Name (English)">
+        <input id="cat_np" placeholder="category Name (Nepali)">
+        <button onclick="addcategory()">Add category</button>
+      </section>
+
+    <!-- sub category -->
+      <section class="card">
+        <h3>📂 Add sub-category</h3>
+        <select id="sub_cat_parent"></select>
+        <input id="sub_en" placeholder="sub-category Name (English)">
+        <input id="sub_np" placeholder="sub-category Name (Nepali)">
+        <button onclick="addsubcategory()">Add sub-category</button>
+      </section>
+
+    <!-- TYPE -->
+      <section class="card">
+        <h3>🏷️ Add Type</h3>
+        <select id="type_parent">
+          <option value="">Select category</option>
+        </select>
+
+        <select id="type_sub_parent">
+          <option value="">Select sub-category</option>
+        </select>
+
+        <input id="type_en" placeholder="Type Name (English)">
+        <input id="type_np" placeholder="Type Name (Nepali)">
+        <button onclick="addType()">Add Type</button>
+      </section>
+
+    <!-- PRODUCT -->
+      <section class="card">
+        <h3>🛒 Add Product</h3>
+        <select id="product_category"></select>
+        <select id="product_subcategory"></select>
+        <select id="product_type"></select>
+        <input id="prod_en" placeholder="Product Name (English)">
+        <input id="prod_np" placeholder="Product Name (Nepali)">
+        <input type="number" id="prod_qty" placeholder="Quantity (number)">
+        <select id="prod_unit">
+          <option value="">Select Unit</option>
+          <option value="kg">kg</option>
+          <option value="gm">gm</option>
+          <option value="ltr">ltr</option>
+          <option value="ml">ml</option>
+          <option value="pic">pic</option>
+          <option value="box">box</option>
+        </select>
+        <input type="number" id="prod_price" placeholder="Original Price">
+        <input type="number" id="prod_discount" placeholder="Discount Price (optional)">
+        <input type="file" id="prod_image" accept="image/*">
+        <button onclick="addProduct()">Add Product</button>
+      </section>
+  </main>
+
+
+
+</div>
+<!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
