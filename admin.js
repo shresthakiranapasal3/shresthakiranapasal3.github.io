@@ -159,3 +159,28 @@ document.getElementById("addTypeBtn")?.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
   loadcategories();
 });
+
+
+// ================================
+// 🔐 ADMIN LOGIN
+// ================================
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    alert("Please enter email and password");
+    return;
+  }
+
+  firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => {
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("dashboardSection").classList.remove("hidden");
+    })
+    .catch(err => {
+      alert(err.message);
+    });
+}
+
